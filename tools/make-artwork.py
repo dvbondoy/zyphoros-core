@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the template's placeholder artwork (no image tools needed).
+"""Generate Zyphor OS's artwork (no image tools needed).
 
 Writes, for DISTRO_ID from distro.conf:
   packages/DISTRO_ID-artwork/usr/share/desktop-base/DISTRO_ID-theme/
