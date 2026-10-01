@@ -1,0 +1,12 @@
+#!/bin/sh
+set -e
+
+if [ "$1" = "remove" ] || [ "$1" = "purge" ]; then
+    rm -f /etc/calamares/branding/zyphoros/branding.desc
+    rm -f /etc/live/config.conf.d/zyphoros-installer.conf
+    rmdir /etc/calamares/branding/zyphoros /etc/calamares/branding 2>/dev/null || true
+    dpkg-divert --package zyphoros-installer --rename \
+        --remove /usr/share/applications/calamares.desktop >/dev/null
+fi
+
+#DEBHELPER#

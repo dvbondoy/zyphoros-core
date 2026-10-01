@@ -1,0 +1,5 @@
+# Regenerate the distro's versions when base-files ships new originals
+# (dpkg writes them to the diverted .debian paths).
+interest-noawait /usr/lib/os-release.debian
+interest-noawait /etc/issue.debian
+interest-noawait /etc/issue.net.debian

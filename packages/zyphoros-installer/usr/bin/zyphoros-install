@@ -1,0 +1,22 @@
+#!/bin/sh
+# Start the Calamares installer as root (live session only).
+#
+# live-build's /etc/fstab lists the live filesystems, which confuses the
+# partitioning step, so it is moved away while Calamares runs. The live user
+# has sudo without a password.
+sudo -n mv /etc/fstab /etc/fstab.zyphoros-install 2>/dev/null
+
+# Wayland sessions: let root's Calamares use the user's display (XWayland).
+if command -v xhost >/dev/null; then
+    xhost +si:localuser:root >/dev/null
+fi
+pkexec calamares "$@"
+status=$?
+if command -v xhost >/dev/null; then
+    xhost -si:localuser:root >/dev/null
+fi
+
+if [ -e /etc/fstab.zyphoros-install ]; then
+    sudo -n mv /etc/fstab.zyphoros-install /etc/fstab
+fi
+exit $status

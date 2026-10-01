@@ -1,0 +1,17 @@
+Source: zyphoros-artwork
+Section: misc
+Priority: optional
+Maintainer: Admin <admin@zyphoros.com>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.7.0
+Rules-Requires-Root: no
+
+Package: zyphoros-artwork
+Architecture: all
+Depends: desktop-base, ${misc:Depends}
+Description: Zyphor OS artwork: wallpaper, login and boot menu backgrounds
+ A desktop-base theme, made the active one (the "desktop-theme" alternative,
+ above Debian's own themes). Everything that follows desktop-base's active
+ theme shows it: the desktop wallpaper of Xfce, GNOME and KDE Plasma, the
+ lock screen, the LightDM and SDDM login screens and the GRUB menu of
+ installed systems. Also the Zyphor OS logo icon (zyphoros-logo).

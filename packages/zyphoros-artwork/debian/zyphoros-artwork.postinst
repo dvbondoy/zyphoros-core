@@ -1,0 +1,14 @@
+#!/bin/sh
+set -e
+
+# desktop-base's alternatives (desktop background, login background, GRUB
+# background, ...) point into /usr/share/desktop-base/active-theme, so making
+# this theme the active one changes all of them. Debian's themes have
+# priorities up to 50. A theme the admin picks with update-alternatives
+# --config desktop-theme stays their choice.
+if [ "$1" = "configure" ]; then
+    update-alternatives --install /usr/share/desktop-base/active-theme \
+        desktop-theme /usr/share/desktop-base/zyphoros-theme 60
+fi
+
+#DEBHELPER#

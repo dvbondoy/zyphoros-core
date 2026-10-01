@@ -1,0 +1,22 @@
+# Zyphor OS's XFCE defaults (zyphoros-settings-xfce): XFCE sessions read
+# /etc/xdg/zyphoros-xfce before /etc/xdg, so its xfconf settings, panel layout
+# and mimeapps.list replace Debian's defaults. Settings in ~/.config still win.
+#
+# Sourced by /etc/X11/Xsession (LightDM's session wrapper); the session
+# detection is the same as 55xfce4-session's.
+xfce_startup=$(basename "$STARTUP" | cut -d\  -f1)
+if [ "$xfce_startup" = x-session-manager ]; then
+    xfce_startup=$(basename "$(readlink /etc/alternatives/x-session-manager)")
+fi
+case "$xfce_startup" in
+  xfce4-session|startxfce4)
+    XDG_CONFIG_DIRS=/etc/xdg/zyphoros-xfce:${XDG_CONFIG_DIRS:-/etc/xdg}
+    export XDG_CONFIG_DIRS
+    # xfconfd and other D-Bus activated programs must see it too.
+    if [ -n "$DBUS_SESSION_BUS_ADDRESS" ] && \
+      command -v dbus-update-activation-environment >/dev/null; then
+        dbus-update-activation-environment --systemd XDG_CONFIG_DIRS
+    fi
+    ;;
+esac
+unset xfce_startup

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Zyphor OS: window borders match the Greybird GTK theme. -->
+<channel name="xfwm4" version="1.0">
+  <property name="general" type="empty">
+    <property name="theme" type="string" value="Greybird"/>
+    <property name="title_font" type="string" value="Noto Sans Bold 10"/>
+    <property name="button_layout" type="string" value="O|HMC"/>
+  </property>
+</channel>

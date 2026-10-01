@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=Install Zyphor OS
+GenericName=Installer
+Comment=Install Zyphor OS on this computer
+Exec=zyphoros-install
+Icon=zyphoros-logo
+Terminal=false
+Categories=System;
+Keywords=install;installer;calamares;
+StartupWMClass=calamares
+StartupNotify=true

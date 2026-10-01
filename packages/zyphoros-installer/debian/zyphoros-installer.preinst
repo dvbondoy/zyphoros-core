@@ -1,0 +1,11 @@
+#!/bin/sh
+set -e
+
+# Hide Calamares' own "Install System" menu entry; ours replaces it.
+if [ "$1" = "install" ] || [ "$1" = "upgrade" ]; then
+    dpkg-divert --package zyphoros-installer --rename \
+        --divert /usr/share/applications/calamares.desktop.zyphoros \
+        --add /usr/share/applications/calamares.desktop >/dev/null
+fi
+
+#DEBHELPER#

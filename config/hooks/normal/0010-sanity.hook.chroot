@@ -1,0 +1,33 @@
+#!/bin/sh
+# Fail the build early if a package the image can't work without is missing.
+#
+# The image is built with --apt-recommends false, so a package that is only
+# *recommended* by another one is silently left out. That can produce an ISO
+# that builds fine and then fails at boot: without user-setup, live-config
+# skips creating the live user and autologin ends in "Authentication failure".
+#
+# Hooks run after all packages are installed but before the (slow) squashfs and
+# ISO steps, so this catches such mistakes ~20 minutes earlier than a boot test.
+#
+# tools/build-iso.sh fills in the @...@ words in its copy of this hook.
+set -e
+
+REQUIRED="user-setup live-boot live-config live-config-systemd
+@DISTRO_ID@-branding @META_PACKAGE@ @REQUIRED@"
+
+missing=""
+for pkg in $REQUIRED; do
+    if ! dpkg-query -W -f='${db:Status-Abbrev}' "$pkg" 2>/dev/null | grep -q '^ii'; then
+        missing="$missing $pkg"
+    fi
+done
+
+if [ -n "$missing" ]; then
+    echo "sanity: these required packages are not installed:$missing" >&2
+    echo "sanity: add them to a meta-package's Depends or to a list in" >&2
+    echo "        config/package-lists/ (a package that is only Recommended by" >&2
+    echo "        another one is not installed automatically)." >&2
+    exit 1
+fi
+
+echo "sanity: all required packages are installed"

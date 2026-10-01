@@ -1,0 +1,4 @@
+# Run by Calamares and the menu entry only; no manual pages.
+zyphoros-installer: no-manual-page [usr/bin/zyphoros-install]
+# The diverted file belongs to calamares, which is a Depends.
+zyphoros-installer: diversion-for-unknown-file

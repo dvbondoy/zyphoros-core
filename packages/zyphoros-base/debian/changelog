@@ -1,0 +1,11 @@
+zyphoros-base (1.1) trixie; urgency=medium
+
+  * Recommend dosfstools, for checking the EFI system partition.
+
+ -- Admin <admin@zyphoros.com>  Wed, 30 Sep 2026 15:25:16 +0800
+
+zyphoros-base (1.0) trixie; urgency=medium
+
+  * Initial release.
+
+ -- Admin <admin@zyphoros.com>  Wed, 30 Sep 2026 11:41:34 +0800

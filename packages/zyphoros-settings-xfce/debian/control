@@ -1,0 +1,40 @@
+Source: zyphoros-settings-xfce
+Section: x11
+Priority: optional
+Maintainer: Admin <admin@zyphoros.com>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.7.0
+Rules-Requires-Root: no
+
+Package: zyphoros-settings-xfce
+Architecture: all
+# What the settings name: the panel's plugins (a missing one makes the panel
+# ask to remove it), the themes, fonts and the login screen; the wallpaper
+# diverted from xfdesktop4-data and linked to desktop-base's.
+Depends: x11-common,
+         xfdesktop4-data,
+         desktop-base,
+         xfce4-panel,
+         xfce4-whiskermenu-plugin,
+         xfce4-pulseaudio-plugin,
+         xfce4-power-manager-plugins,
+         xfce4-notifyd,
+         greybird-gtk-theme,
+         elementary-xfce-icon-theme,
+         fonts-noto-core,
+         fonts-noto-mono,
+         lightdm,
+         lightdm-gtk-greeter,
+         zyphoros-artwork,
+         ${misc:Depends}
+Description: Zyphor OS defaults for the Xfce desktop
+ The look and layout of Zyphor OS's Xfce edition: one bottom panel with the
+ Whisker menu, window buttons, tray, sound, battery, notifications and
+ clock; the Greybird theme with elementary icons and Noto fonts; the
+ desktop-base wallpaper; default applications; and the LightDM login screen
+ in the same style.
+ .
+ The settings live in /etc/xdg/zyphoros-xfce, which Xfce sessions read
+ before /etc/xdg (see /etc/X11/Xsession.d/56zyphoros-xfce), so they only
+ change defaults: a user's own choices in ~/.config always win, and
+ Debian's files are left untouched.

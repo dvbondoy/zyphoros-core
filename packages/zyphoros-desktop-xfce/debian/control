@@ -1,0 +1,91 @@
+Source: zyphoros-desktop-xfce
+Section: metapackages
+Priority: optional
+Maintainer: Admin <admin@zyphoros.com>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.7.0
+Rules-Requires-Root: no
+
+Package: zyphoros-desktop-xfce
+Architecture: all
+# Depends: the desktop is broken without these. Removing one removes this
+# meta-package too.
+Depends: zyphoros-base,
+         zyphoros-artwork,
+         zyphoros-settings-xfce,
+# The X server, with 3D drivers (only a Recommends of xserver-xorg).
+         xserver-xorg,
+         libgl1-mesa-dri,
+         x11-xserver-utils,
+# The Xfce session (listed one by one, not the xfce4 meta-package, so
+# removing e.g. xfce4-appfinder doesn't remove this package).
+         xfce4-session,
+         xfwm4,
+         xfdesktop4,
+         xfce4-panel,
+         xfce4-settings,
+         xfconf,
+         thunar,
+         xfce4-notifyd,
+         xfce4-power-manager,
+# Login and lock screen, and the password dialog of administrative actions.
+         lightdm,
+         lightdm-gtk-greeter,
+         light-locker,
+         mate-polkit,
+         polkitd,
+# Session bus, power, disks, sound, network.
+         dbus-user-session,
+         upower,
+         udisks2,
+         gvfs,
+         pipewire-audio,
+         network-manager-applet,
+         xdg-user-dirs,
+         xdg-utils,
+         fonts-noto-core,
+         ${misc:Depends}
+# Recommends: the applications and extras. Users can remove any of them
+# without apt removing the desktop.
+Recommends: firefox-esr,
+            xfce4-terminal,
+            mousepad,
+            ristretto,
+            atril,
+            parole,
+            xarchiver,
+            thunar-archive-plugin,
+            thunar-volman,
+            tumbler,
+            gvfs-backends,
+            xfce4-appfinder,
+            xfce4-screenshooter,
+            xfce4-taskmanager,
+            galculator,
+            libreoffice-writer,
+            libreoffice-calc,
+            libreoffice-impress,
+            libreoffice-gtk3,
+            gnome-disk-utility,
+# Sound, Bluetooth and printer settings.
+            pavucontrol,
+            blueman,
+            cups,
+            system-config-printer,
+# Updates: a tray icon when updates are available, and an updates window.
+            package-update-indicator,
+            gnome-package-updater,
+            gnome-packagekit,
+# Saved Wi-Fi and web passwords, unlocked at login.
+            gnome-keyring,
+            libpam-gnome-keyring,
+            at-spi2-core,
+            fonts-noto-color-emoji,
+# Clipboard and screen resizing in virtual machines.
+            spice-vdagent
+Description: Zyphor OS Xfce desktop (metapackage)
+ Zyphor OS's Xfce edition: the Xfce desktop with the LightDM login screen,
+ screen locking, sound (PipeWire), network, Bluetooth, printing and update
+ notifications, and applications for everyday work: Firefox, LibreOffice,
+ a file manager, terminal, text editor, image viewer, PDF viewer, media
+ player and archive manager.

@@ -1,0 +1,13 @@
+# *.list.binary: not installed in the live system, but put in the ISO's
+# package pool (/pool, /dists) with all their dependencies. The installer
+# installs the bootloader of the new system from there, without a network
+# (DISTRO_ID-installer's sources-media and bootloader-packages).
+# UEFI, with Secure Boot (shim and the signed GRUB), and what an encrypted
+# root filesystem needs.
+grub-efi-amd64
+grub-efi-amd64-signed
+shim-signed
+efibootmgr
+cryptsetup-initramfs
+cryptsetup
+keyutils

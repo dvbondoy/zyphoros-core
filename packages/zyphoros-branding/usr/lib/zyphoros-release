@@ -1,0 +1,9 @@
+# The distro's identity: the single source of its name and version.
+# - zyphoros-branding generates /usr/lib/os-release (/etc/os-release),
+#   /etc/issue and /etc/issue.net from this file and Debian's originals.
+# - tools/build-iso.sh and auto/config use it for the ISO's file name and label.
+# Bump DISTRO_VERSION for each release, together with a changelog entry for
+# this package (dch -i -D trixie "Version X.Y.").
+DISTRO_ID=zyphoros
+DISTRO_NAME="Zyphor OS"
+DISTRO_VERSION="1.0"

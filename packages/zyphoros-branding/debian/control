@@ -1,0 +1,17 @@
+Source: zyphoros-branding
+Section: misc
+Priority: optional
+Maintainer: Admin <admin@zyphoros.com>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.7.0
+Rules-Requires-Root: no
+
+Package: zyphoros-branding
+Architecture: all
+Depends: ${misc:Depends}
+Description: Zyphor OS branding: OS name and login banner
+ Shows "Zyphor OS" in /etc/os-release (PRETTY_NAME, VARIANT) and on the text
+ console login banner (/etc/issue, /etc/issue.net). Debian's originals are
+ kept via dpkg-divert and the Zyphor OS versions are regenerated from them
+ whenever base-files is upgraded. ID=debian and all version fields stay
+ unchanged, so software that detects Debian keeps working.

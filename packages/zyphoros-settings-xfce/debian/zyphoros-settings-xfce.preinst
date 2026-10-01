@@ -1,0 +1,14 @@
+#!/bin/sh
+set -e
+
+# xfdesktop's built-in default wallpaper (no setting can change it for every
+# monitor of every new user). Debian's picture moves to xfce-x-original.svg
+# and this package puts a link to desktop-base's wallpaper in its place, so
+# Xfce shows the active desktop-base theme like GNOME and KDE do.
+if [ "$1" = "install" ] || [ "$1" = "upgrade" ]; then
+    dpkg-divert --package zyphoros-settings-xfce --rename \
+        --divert /usr/share/backgrounds/xfce/xfce-x-original.svg \
+        --add /usr/share/backgrounds/xfce/xfce-x.svg >/dev/null
+fi
+
+#DEBHELPER#

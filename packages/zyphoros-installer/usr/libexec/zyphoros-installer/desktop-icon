@@ -1,0 +1,17 @@
+#!/bin/sh
+# Put the "Install Zyphor OS" launcher on the live user's desktop (started by
+# /etc/xdg/autostart/zyphoros-install-icon.desktop in the live session).
+set -e
+
+desktop="$(xdg-user-dir DESKTOP 2>/dev/null || echo "$HOME/Desktop")"
+launcher="$desktop/zyphoros-install.desktop"
+mkdir -p "$desktop"
+cp /usr/share/applications/zyphoros-install.desktop "$launcher"
+chmod +x "$launcher"
+
+# XFCE runs a desktop launcher only after the user trusted it; trust this one.
+if [ "$XDG_CURRENT_DESKTOP" = "XFCE" ] && command -v gio >/dev/null; then
+    gio set --type=string "$launcher" metadata::xfce-exe-checksum \
+        "$(sha256sum "$launcher" | cut -d' ' -f1)" || true
+    touch "$launcher"   # xfdesktop rereads it
+fi

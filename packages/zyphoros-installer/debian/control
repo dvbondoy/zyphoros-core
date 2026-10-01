@@ -1,0 +1,41 @@
+Source: zyphoros-installer
+Section: admin
+Priority: optional
+Maintainer: Admin <admin@zyphoros.com>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.7.0
+Rules-Requires-Root: no
+
+Package: zyphoros-installer
+Architecture: all
+Depends: calamares,
+# The password check (libpwquality) fails every password without cracklib's
+# dictionary, which libcrack2 only recommends.
+         cracklib-runtime,
+# Partitioning and copying the system: mkfs.fat for the EFI partition
+# (udisks2 only recommends dosfstools), unsquashfs for unpackfs (Calamares
+# only recommends squashfs-tools).
+         dosfstools,
+         squashfs-tools,
+         zyphoros-branding,
+         rsync,
+         cryptsetup,
+         keyutils,
+         pkexec,
+         sudo,
+         x11-xserver-utils,
+         xdg-user-dirs,
+         libglib2.0-bin,
+         qml-module-qtquick-window2,
+         qml-module-qtquick2,
+         ${misc:Depends}
+Conflicts: calamares-settings-debian
+Description: Zyphor OS installer (live image only)
+ Settings and branding for the Calamares installer on Zyphor OS's live
+ image, based on Debian's calamares-settings-debian: "Install Zyphor OS" in
+ the menu and on the live desktop, GRUB for UEFI (Secure Boot) or BIOS
+ installed from the ISO without a network, and the login screen of the
+ installed system set up (with optional autologin).
+ .
+ The installer removes this package, Calamares and the live system
+ packages from the installed system.

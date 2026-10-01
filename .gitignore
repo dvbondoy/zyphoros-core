@@ -1,0 +1,9 @@
+# One live-build tree per edition (tools/build-iso.sh), and the ISOs.
+build/
+out/
+# Package build copies (packages/build.sh).
+packages/.build/
+# tools/test-iso.sh and tools/boot-test.py.
+.test-vm/
+boot-test/
+__pycache__/

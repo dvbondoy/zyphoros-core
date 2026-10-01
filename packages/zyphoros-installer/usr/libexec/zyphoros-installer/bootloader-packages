@@ -1,0 +1,33 @@
+#!/bin/sh
+# bootloader-packages ROOT
+#
+# Install GRUB into the new system at ROOT, for how this computer booted:
+# UEFI (with shim and the signed GRUB, so Secure Boot works) or BIOS. The
+# packages come from the ISO's pool (sources-media). Calamares' bootloader
+# module then runs grub-install and grub-mkconfig.
+set -e
+
+ROOT="${1:?usage: bootloader-packages ROOT}"
+export DEBIAN_FRONTEND=noninteractive
+
+if [ -d /sys/firmware/efi/efivars ]; then
+    packages="grub-efi-amd64 grub-efi-amd64-signed shim-signed efibootmgr"
+else
+    packages="grub-pc"
+fi
+
+# An encrypted root filesystem needs cryptsetup in the initramfs.
+if findmnt -n -o SOURCE --target "$ROOT" | grep -q '^/dev/mapper/'; then
+    packages="$packages cryptsetup-initramfs cryptsetup keyutils"
+    echo "UMASK=0077" > "$ROOT/etc/initramfs-tools/conf.d/initramfs-permissions"
+fi
+
+# shellcheck disable=SC2086
+chroot "$ROOT" apt-get -y install $packages
+
+# List other operating systems in the GRUB menu (Debian turns os-prober off).
+if [ -f "$ROOT/etc/default/grub" ]; then
+    sed -i 's/^#\?GRUB_DISABLE_OS_PROBER=.*/GRUB_DISABLE_OS_PROBER=false/' "$ROOT/etc/default/grub"
+    grep -q '^GRUB_DISABLE_OS_PROBER=' "$ROOT/etc/default/grub" \
+        || echo 'GRUB_DISABLE_OS_PROBER=false' >> "$ROOT/etc/default/grub"
+fi

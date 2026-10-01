@@ -1,0 +1,3 @@
+# The Calamares installer (live image only; it removes itself on install).
+# Added to editions whose desktop.conf sets INSTALLER=yes.
+@DISTRO_ID@-installer

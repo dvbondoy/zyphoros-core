@@ -1,0 +1,4 @@
+# BIOS GRUB for the installer (see grub-efi.list.binary). A list of its own:
+# grub-pc and grub-efi-amd64 conflict, and live-build downloads each list
+# with one apt-get call.
+grub-pc

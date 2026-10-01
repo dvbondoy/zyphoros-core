@@ -1,0 +1,10 @@
+#!/bin/sh
+# live-build writes APT::Install-Recommends "false" into the image for
+# --apt-recommends false and leaves it there, so installed systems would
+# never install Recommends again: apps a user installs later would come
+# without the parts Debian expects them to have, and a meta-package's new
+# Recommends would never reach them. The build is done installing packages
+# at this point, so give installed systems Debian's default back.
+set -e
+
+rm -f /etc/apt/apt.conf.d/00recommends

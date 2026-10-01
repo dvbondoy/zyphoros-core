@@ -1,0 +1,54 @@
+Source: zyphoros-base
+Section: metapackages
+Priority: optional
+Maintainer: Admin <admin@zyphoros.com>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.7.0
+Rules-Requires-Root: no
+
+Package: zyphoros-base
+Architecture: all
+# Depends: the system is broken without these. Removing one removes this
+# meta-package too, and the desktop meta-packages that depend on it.
+Depends: zyphoros-branding,
+         linux-image-amd64,
+         systemd-sysv,
+         libpam-systemd,
+         dbus,
+         systemd-timesyncd,
+         network-manager,
+         sudo,
+         locales,
+         keyboard-configuration,
+         console-setup,
+         tzdata,
+         iproute2,
+         ca-certificates,
+# unattended-upgrades: automatic security updates (Debian's default answer
+# turns them on).
+         unattended-upgrades,
+         ${misc:Depends}
+# Recommends: removable tools. The image installs them (config/hooks/normal/
+# 0050-recommends); users can uninstall any of them without apt also
+# removing this package.
+Recommends: wpasupplicant,
+            intel-microcode,
+            amd64-microcode,
+            bash-completion,
+            iputils-ping,
+            curl,
+            man-db,
+            manpages,
+            less,
+            nano,
+            file,
+            pciutils,
+            usbutils,
+# fsck.fat for the EFI system partition of installed UEFI systems.
+            dosfstools,
+            xz-utils,
+            zstd
+Description: Zyphor OS base system (metapackage)
+ The parts every Zyphor OS edition has, including the console-only one:
+ kernel, systemd, NetworkManager, sudo, locales and keyboard setup, and
+ automatic security updates, plus common command-line tools.

@@ -1,0 +1,39 @@
+#!/bin/sh
+set -e
+
+# The single source of all lb config options. lb config runs this in
+# build/DESKTOP/, which tools/build-iso.sh assembles: distro.conf, release and
+# desktop.conf there are copies of the repository's files.
+. ./distro.conf     # DISTRO_ID, SUITE, MIRROR, ARCHIVE_AREAS, LIVE_USER, LIVE_HOSTNAME
+. ./release         # DISTRO_NAME, DISTRO_VERSION
+. ./desktop.conf    # DESKTOP, DESKTOP_NAME, BOOT_OPTIONS
+
+# --apt-recommends false: each edition installs exactly its meta-package's
+# Depends plus the Recommends that hooks/normal/0050-recommends picks, not
+# everything Debian's packages recommend. 0900-apt-recommends turns
+# Recommends back on for installed systems.
+lb config noauto \
+    --distribution           "${SUITE}" \
+    --architectures          amd64 \
+    --archive-areas          "${ARCHIVE_AREAS}" \
+    --mirror-bootstrap       "${MIRROR}" \
+    --mirror-binary          "${MIRROR}" \
+    --binary-images          iso-hybrid \
+    --bootloaders            "syslinux,grub-efi" \
+    --debian-installer       none \
+    --apt-recommends         false \
+    --apt-indices            false \
+    --firmware-chroot        true \
+    --firmware-binary        false \
+    --memtest                none \
+    --updates                true \
+    --security               true \
+    --backports              false \
+    --iso-application        "${DISTRO_NAME}" \
+    --iso-volume             "${DISTRO_NAME} ${DISTRO_VERSION} ${DESKTOP_NAME}" \
+    --iso-publisher          "${DISTRO_NAME}" \
+    --iso-preparer           "live-build" \
+    --image-name             "${DISTRO_ID}-${DESKTOP}" \
+    --bootappend-live        "boot=live components ${BOOT_OPTIONS} username=${LIVE_USER} hostname=${LIVE_HOSTNAME}" \
+    --bootappend-live-failsafe "boot=live components memtest noapic noapm nodma nomce nosmp nosplash vga=788 username=${LIVE_USER} hostname=${LIVE_HOSTNAME}" \
+    "${@}"

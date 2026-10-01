@@ -1,0 +1,35 @@
+#!/bin/sh
+# The image is built with --apt-recommends false, so the Recommends of the
+# distro's own meta-packages (the apps) are not installed automatically.
+# Install exactly those lists, for every installed @DISTRO_ID@-* package,
+# without recursing into the Recommends of Debian's packages. Repeat while
+# that brings in more @DISTRO_ID@-* packages.
+#
+# tools/build-iso.sh fills in the @...@ words in its copy of this hook.
+set -e
+
+# The Recommends of the installed @DISTRO_ID@-* packages: first alternative of
+# each, without version constraints.
+own_recommends() {
+    dpkg-query -W -f='${db:Status-Abbrev}|${Recommends}\n' '@DISTRO_ID@-*' 2>/dev/null \
+        | awk -F'|' '$1 ~ /^ii/ { print $2 }' \
+        | tr ',' '\n' \
+        | sed -e 's/|.*//' -e 's/([^)]*)//g' -e 's/:any//' -e 's/[[:space:]]//g' \
+        | grep -v '^$' | sort -u
+}
+
+installed_own() {
+    dpkg-query -W -f='${db:Status-Abbrev} ${Package}\n' '@DISTRO_ID@-*' 2>/dev/null \
+        | awk '$1 ~ /^ii/ { print $2 }' | sort
+}
+
+before=""
+while [ "$(installed_own)" != "$before" ]; do
+    before="$(installed_own)"
+    recommends="$(own_recommends)"
+    if [ -n "$recommends" ]; then
+        echo "recommends: installing" $recommends
+        # shellcheck disable=SC2086
+        apt-get install -y --no-install-recommends $recommends
+    fi
+done

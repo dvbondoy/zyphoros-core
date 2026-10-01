@@ -1,0 +1,36 @@
+#!/bin/sh
+# sources-media ROOT mount|unmount
+#
+# The live ISO carries a small package pool (/pool and /dists, made by
+# live-build from installer/config/package-lists/*.list.binary) with the
+# bootloader packages. "mount" makes it an apt source of the new system at
+# ROOT, so the installer can install them without a network; "unmount"
+# takes it away again.
+set -e
+
+ROOT="${1:?usage: sources-media ROOT mount|unmount}"
+MEDIUM=/run/live/medium
+LIST="$ROOT/etc/apt/sources.list.d/live-medium.list"
+
+case "$2" in
+    mount)
+        suite="$(basename "$(ls -d "$MEDIUM"/dists/*/ | head -n1)")"
+        mkdir -p "$ROOT$MEDIUM"
+        mount --bind "$MEDIUM" "$ROOT$MEDIUM"
+        echo "deb [trusted=yes] file:$MEDIUM $suite main" > "$LIST"
+        # Without a network the other sources fail; the medium is enough.
+        chroot "$ROOT" apt-get update || echo "sources-media: apt-get update had errors (offline?), going on"
+        ;;
+    unmount)
+        rm -f "$LIST"
+        if mountpoint -q "$ROOT$MEDIUM"; then
+            umount "$ROOT$MEDIUM"
+        fi
+        rmdir "$ROOT$MEDIUM" "$ROOT/run/live" 2>/dev/null || true
+        chroot "$ROOT" apt-get update || echo "sources-media: apt-get update had errors (offline?), going on"
+        ;;
+    *)
+        echo "usage: sources-media ROOT mount|unmount" >&2
+        exit 2
+        ;;
+esac

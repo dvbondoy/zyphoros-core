@@ -1,0 +1,26 @@
+#!/bin/sh
+set -e
+
+BRANDED_FILES="/usr/lib/os-release /etc/issue /etc/issue.net"
+
+case "$1" in
+    remove)
+        # Put Debian's original files back, then drop the diversions. Only act
+        # while our diversion still exists, so running this twice is harmless.
+        for file in $BRANDED_FILES; do
+            if dpkg-divert --listpackage "$file" 2>/dev/null | grep -qx zyphoros-branding; then
+                if [ -e "$file.debian" ]; then
+                    mv -f "$file.debian" "$file"
+                else
+                    rm -f "$file"
+                fi
+                dpkg-divert --package zyphoros-branding --remove --no-rename \
+                    --divert "$file.debian" "$file" >/dev/null
+            fi
+        done
+        ;;
+esac
+
+#DEBHELPER#
+
+exit 0

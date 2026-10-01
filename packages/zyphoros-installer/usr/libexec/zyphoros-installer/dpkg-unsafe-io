@@ -1,0 +1,13 @@
+#!/bin/sh
+# dpkg-unsafe-io ROOT on|off: dpkg in the new system skips fsync while the
+# installer works (much faster), then goes back to normal.
+set -e
+
+ROOT="${1:?usage: dpkg-unsafe-io ROOT on|off}"
+FILE="$ROOT/etc/dpkg/dpkg.cfg.d/calamares-force-unsafe-io"
+
+case "$2" in
+    on) echo "force-unsafe-io" > "$FILE" ;;
+    off) rm -f "$FILE"; sync ;;
+    *) echo "usage: dpkg-unsafe-io ROOT on|off" >&2; exit 2 ;;
+esac
