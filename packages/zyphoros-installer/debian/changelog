@@ -6,10 +6,10 @@ zyphoros-installer (1.1) trixie; urgency=medium
   * Depend on dosfstools and squashfs-tools: Calamares can't create the
     EFI partition or copy the system without them.
 
- -- Admin <admin@zyphoros.com>  Wed, 30 Sep 2026 15:08:46 +0800
+ -- Jon <dvbondoy@gmail.com>  Wed, 30 Sep 2026 15:08:46 +0800
 
 zyphoros-installer (1.0) trixie; urgency=medium
 
   * Initial release.
 
- -- Admin <admin@zyphoros.com>  Wed, 30 Sep 2026 14:19:14 +0800
+ -- Jon <dvbondoy@gmail.com>  Wed, 30 Sep 2026 14:19:14 +0800

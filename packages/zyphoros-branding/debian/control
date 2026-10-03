@@ -1,7 +1,7 @@
 Source: zyphoros-branding
 Section: misc
 Priority: optional
-Maintainer: Admin <admin@zyphoros.com>
+Maintainer: Jon <dvbondoy@gmail.com>
 Build-Depends: debhelper-compat (= 13)
 Standards-Version: 4.7.0
 Rules-Requires-Root: no

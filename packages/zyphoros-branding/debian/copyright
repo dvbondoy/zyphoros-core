@@ -1,9 +1,9 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: zyphoros-branding
-Upstream-Contact: Admin <admin@zyphoros.com>
+Upstream-Contact: Jon <dvbondoy@gmail.com>
 
 Files: *
-Copyright: 2026 Admin <admin@zyphoros.com>
+Copyright: 2026 Jon <dvbondoy@gmail.com>
 License: GPL-3+
 
 License: GPL-3+
