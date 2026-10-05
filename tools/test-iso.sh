@@ -1,5 +1,7 @@
 #!/bin/bash
-# Boot an edition's ISO (or its installed test disk) in a QEMU window.
+# Description: Boot an edition's ISO or its installed test disk in a QEMU window.
+# Author: dvbondoy <dvbondoy@gmail.com>
+# Date: 2026-10-01
 set -euo pipefail
 
 usage() {

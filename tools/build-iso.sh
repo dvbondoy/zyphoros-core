@@ -1,6 +1,9 @@
 #!/bin/bash
-# Build one edition's live ISO from scratch: assemble build/DESKTOP/ from the
-# common config and the edition's, build the packages, lb config, lb build.
+# Description: Build one edition's live ISO from scratch with live-build.
+# Author: dvbondoy <dvbondoy@gmail.com>
+# Date: 2026-10-01
+# Assembles build/DESKTOP/ from the common config and the edition's, builds the
+# packages, then runs lb config and lb build.
 # Output: out/DISTRO_ID-VERSION-DESKTOP-amd64.iso, out/SHA256SUMS and
 # build/DESKTOP/build.log.
 set -euo pipefail

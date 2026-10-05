@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Description: Headless boot test for one edition's live ISO.
+# Author: dvbondoy <dvbondoy@gmail.com>
+# Date: 2026-10-01
 """Headless boot test for one edition's live ISO.
 
 Boots the ISO in QEMU without a window, logs in on the serial console and runs

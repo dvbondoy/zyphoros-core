@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Description: Generate Zyphor OS artwork (wallpapers, GRUB backgrounds, logos, and installer images).
+# Author: dvbondoy <dvbondoy@gmail.com>
+# Date: 2026-10-01
 """Generate Zyphor OS's artwork (no image tools needed).
 
 Writes, for DISTRO_ID from distro.conf:
